@@ -1,0 +1,7 @@
+packages:
+  - type: github_release
+    repo_owner: walles
+    repo_name: moar
+    # Exclude versions that only have Homebrew formula files
+    version_filter: 'Version != "0.9.7"'
+    description: Moar is a pager. It's designed to just do the right thing without any configuration
