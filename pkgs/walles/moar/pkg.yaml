@@ -10,3 +10,5 @@ packages:
     version: v1.11.4
   - name: walles/moar
     version: v1.8.1
+  - name: walles/moar
+    version: 0.9.7
