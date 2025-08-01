@@ -4,7 +4,7 @@ packages:
     repo_owner: walles
     repo_name: moar
     description: Moar is a pager. It's designed to just do the right thing without any configuration
-    version_constraint: "false"
+    version_constraint: semver(">= 1.4.0")
     version_overrides:
       - version_constraint: Version == "v1.23.3"
         asset: moar-{{.Version}}-dirty-{{.OS}}-{{.Arch}}
