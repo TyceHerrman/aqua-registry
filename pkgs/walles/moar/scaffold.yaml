@@ -1,0 +1,8 @@
+packages:
+  - type: github_release
+    repo_owner: walles
+    repo_name: moar
+    # Only include versions with binary assets (v1.4.0 and later)
+    # Earlier versions only have Homebrew formula files
+    version_constraint: 'semver(">= 1.4.0")'
+    description: Moar is a pager. It's designed to just do the right thing without any configuration
