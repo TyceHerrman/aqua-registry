@@ -78137,15 +78137,14 @@ packages:
     version_constraint: "false"
     version_overrides:
       - version_constraint: Version == "v1.23.3"
-        asset: moar-{{.Version}}-{{.OS}}-{{.Arch}}
+        asset: moar-{{.Version}}-dirty-{{.OS}}-{{.Arch}}
         format: raw
         windows_arm_emulation: true
+        replacements:
+          arm64: arm
         overrides:
           - goos: linux
-            replacements:
-              arm64: arm
-          - goos: windows
-            asset: moar-{{.Version}}-dirty-{{.OS}}-{{.Arch}}
+            asset: moar-{{.Version}}-{{.OS}}-{{.Arch}}
         supported_envs:
           - linux/arm64
           - windows/amd64
