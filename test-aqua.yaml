@@ -1,0 +1,4 @@
+packages:
+  - name: walles/moar
+    version: 0.9.7
+    registry: local
