@@ -75603,6 +75603,10 @@ packages:
               - --signature
               - https://github.com/tmknom/actdocs/releases/download/{{.Version}}/actdocs_{{trimV .Version}}_checksums.txt.sig
   - type: github_release
+    repo_owner: tmux
+    repo_name: tmux
+    description: tmux source code
+  - type: github_release
     repo_owner: tofuutils
     repo_name: tenv
     description: OpenTofu / Terraform version manager
