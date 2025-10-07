@@ -2060,10 +2060,6 @@ packages:
           amd64: x64
           darwin: osx
           windows: win
-        overrides:
-          - goos: linux
-            goarch: amd64
-            asset: cyclonedx-{{.OS}}-musl-{{.Arch}}
       - version_constraint: "true"
         asset: cyclonedx-{{.OS}}-{{.Arch}}
         format: raw
@@ -2071,10 +2067,6 @@ packages:
           amd64: x64
           darwin: osx
           windows: win
-        overrides:
-          - goos: linux
-            goarch: amd64
-            asset: cyclonedx-{{.OS}}-musl-{{.Arch}}
   - type: github_release
     repo_owner: Darth-Tech
     repo_name: samwise-cli
@@ -4600,6 +4592,26 @@ packages:
         supported_envs:
           - darwin
           - linux/amd64
+  - type: github_release
+    repo_owner: NikitaCOEUR
+    repo_name: dirvana
+    description: "Reach directory nirvana - per-project aliases, functions, and env vars that auto-load when you cd. Zero friction, zero pollution"
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: dirvana_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          amd64: x86_64
+          darwin: Darwin
+          linux: Linux
+        checksum:
+          type: github_release
+          asset: checksums.txt
+          algorithm: sha256
+        supported_envs:
+          - linux
+          - darwin
   - type: github_release
     repo_owner: NimbleArchitect
     repo_name: kubectl-ice
@@ -17244,50 +17256,90 @@ packages:
     description: Deduplicating archiver with compression and authenticated encryption
     version_constraint: "false"
     version_overrides:
-      - version_constraint: Version in ["0.28.0", "0.28.1", "0.30.1"]
+      - version_constraint: Version in ["0.28.0", "0.28.1", "0.30.1"] || semver(">= 1.2.0-a2, <= 1.2.0-a5")
         no_asset: true
-      - version_constraint: Version == "1.0.1"
+      - version_constraint: Version in ["1.0.1", "1.1.15b1"]
         asset: borg-{{.OS}}64
         format: raw
-        replacements:
-          amd64: x64
         supported_envs:
           - linux/amd64
       - version_constraint: Version == "1.0.3"
         asset: borg-{{.OS}}64
         format: raw
-        rosetta2: true
-        replacements:
-          amd64: x64
         supported_envs:
           - linux/amd64
           - darwin
-      - version_constraint: semver("<= 1.1.18")
+      - version_constraint: Version in ["0.26.1", "0.27.0"] || semver("<= 1.2.0b3")
         asset: borg-{{.OS}}64
         format: raw
-        rosetta2: true
         replacements:
-          amd64: x64
           darwin: macosx
         supported_envs:
           - linux/amd64
           - darwin
-      - version_constraint: semver("<= 1.2.8")
+      - version_constraint: semver("<= 1.2.0") || Version == "1.3.0a1"
         asset: borg-{{.OS}}64
         format: raw
-        rosetta2: true
         replacements:
-          amd64: x64
           darwin: macos
         supported_envs:
           - linux/amd64
           - darwin
-      - version_constraint: "true"
+      - version_constraint: Version in ["1.2.7", "1.2.8", "1.2.9"]
+        asset: borg-{{.OS}}64
+        format: raw
+        replacements:
+          linux: linuxnewer
+          darwin: macos
+        supported_envs:
+          - linux/amd64
+          - darwin
+      - version_constraint: semver("<= 1.2.6") || semver(">= 2.0.0a2, <= 2.0.0-b1") || Version in ["2.0.0b2", "2.0.0b3", "2.0.0b6", "2.0.0b7"]
+        asset: borg-{{.OS}}64
+        format: raw
+        replacements:
+          linux: linuxnew
+          darwin: macos
+        supported_envs:
+          - linux/amd64
+          - darwin
+      - version_constraint: Version == "2.0.0b4"
+        asset: borg-{{.OS}}64
+        format: raw
+        replacements:
+          linux: linuxnew
+        supported_envs:
+          - linux/amd64
+      - version_constraint: Version == "2.0.0b5"
+        asset: borg-{{.OS}}{{.Arch}}
+        format: raw
+        replacements:
+          linux: linuxnew
+          darwin: macos
+          amd64: "64"
+          arm64: -arm
+        supported_envs:
+          - linux/amd64
+          - darwin
+      - version_constraint: semver("<= 1.4.0-rc1") || Version == "2.0.0b8"
         asset: borg-{{.OS}}
         format: raw
-        rosetta2: true
         replacements:
-          linux: linux-glibc228
+          linux: linux-glibc236
+          darwin: macos
+        supported_envs:
+          - linux/amd64
+          - darwin
+      - version_constraint: Version in ["2.0.0b12", "2.0.0b13", "2.0.0b14", "2.0.0b19"]
+        asset: borg-{{.OS}}-glibc236
+        format: raw
+        supported_envs:
+          - linux/amd64
+      - version_constraint: semver("<= 1.4.1") || true
+        asset: borg-{{.OS}}
+        format: raw
+        replacements:
+          linux: linux-glibc236
           darwin: macos1012
         supported_envs:
           - linux/amd64
@@ -30057,6 +30109,24 @@ packages:
           - goos: windows
             format: zip
   - type: github_release
+    repo_owner: edoardottt
+    repo_name: depsdev
+    description: CLI client (and Golang module) for deps.dev API. Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 0.0.10")
+        type: go_install
+      - version_constraint: "true"
+        asset: depsdev_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: zip
+        windows_arm_emulation: true
+        replacements:
+          darwin: macOS
+        checksum:
+          type: github_release
+          asset: depsdev_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
+  - type: github_release
     repo_owner: eficode
     repo_name: wait-for
     description: ./wait-for is a script to wait for another service to become available
@@ -32593,6 +32663,32 @@ packages:
             asset: iam-policy-json-to-terraform_amd64
           - goos: darwin
             asset: iam-policy-json-to-terraform_darwin
+  - type: http
+    repo_owner: flutter
+    repo_name: flutter
+    description: Flutter SDK - Google's UI toolkit for building beautiful, natively compiled applications
+    version_source: github_tag
+    version_filter: Version matches "^\\d+\\.\\d+\\.\\d+$"
+    files:
+      - name: flutter
+        src: flutter/bin/flutter
+      - name: dart
+        src: flutter/bin/dart
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        url: https://storage.googleapis.com/flutter_infra_release/releases/stable/{{.OS}}/flutter_{{.OS}}_{{trimV .Version}}-stable.{{.Format}}
+        format: zip
+        replacements:
+          darwin: macos
+        overrides:
+          - goos: linux
+            format: tar.xz
+          - goos: windows
+            goarch: arm64
+            url: https://storage.googleapis.com/flutter_infra_release/releases/stable/{{.OS}}/flutter_{{.OS}}_{{trimV .Version}}-stable.{{.Format}}
+          - goarch: arm64
+            url: https://storage.googleapis.com/flutter_infra_release/releases/stable/{{.OS}}/flutter_{{.OS}}_{{.Arch}}_{{trimV .Version}}-stable.{{.Format}}
   - name: flux-iac/tofu-controller/tfctl
     type: github_release
     repo_owner: flux-iac
@@ -35805,6 +35901,21 @@ packages:
           - windows
           - amd64
   - type: github_release
+    repo_owner: go-monk
+    repo_name: checkip
+    aliases:
+      - name: jreisinger/checkip
+    description: Get (security) info about IP addresses
+    rosetta2: true
+    asset: checkip_{{trimV .Version}}_{{.OS}}_{{.Arch}}.tar.gz
+    supported_envs:
+      - darwin
+      - amd64
+    checksum:
+      type: github_release
+      asset: checksums.txt
+      algorithm: sha256
+  - type: github_release
     repo_owner: go-semantic-release
     repo_name: semantic-release
     description: semantic-release written in Go
@@ -37980,6 +38091,26 @@ packages:
           - darwin/arm64
   - type: github_release
     repo_owner: grafana
+    repo_name: alloy
+    description: OpenTelemetry Collector distribution with programmable pipelines
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: alloy-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: zip
+        windows_arm_emulation: true
+        files:
+          - name: alloy
+            src: "{{.AssetWithoutExt}}"
+        checksum:
+          type: github_release
+          asset: SHA256SUMS
+          algorithm: sha256
+        overrides:
+          - goos: windows
+            asset: alloy-{{.OS}}-{{.Arch}}.exe.{{.Format}}
+  - type: github_release
+    repo_owner: grafana
     repo_name: grafana-kiosk
     description: Kiosk Utility for Grafana
     rosetta2: true
@@ -37989,6 +38120,27 @@ packages:
       - darwin
       - linux
       - amd64
+  - type: github_release
+    repo_owner: grafana
+    repo_name: grafanactl
+    description: The Grafana CLI. Command-line tool designed to simplify interaction with Grafana resources
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: grafanactl_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          amd64: x86_64
+          darwin: Darwin
+          linux: Linux
+          windows: Windows
+        checksum:
+          type: github_release
+          asset: grafanactl_checksums.txt
+          algorithm: sha256
+        overrides:
+          - goos: windows
+            format: zip
   - type: github_release
     repo_owner: grafana
     repo_name: grizzly
@@ -40551,6 +40703,79 @@ packages:
           - linux
           - darwin
   - type: github_release
+    repo_owner: hougesen
+    repo_name: mdsf
+    description: Format markdown code blocks using your favorite tools
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 0.0.2")
+        no_asset: true
+      - version_constraint: semver("<= 0.2.2")
+        asset: mdsf-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: zip
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          darwin: macos
+        overrides:
+          - goos: linux
+            asset: mdsf-{{.OS}}-{{.Arch}}-musl.{{.Format}}
+          - goos: darwin
+            replacements:
+              arm64: aarch64
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
+      - version_constraint: Version == "v0.2.3"
+        asset: mdsf-{{.Arch}}-{{.OS}}.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        files:
+          - name: mdsf
+            src: "{{.AssetWithoutExt}}/mdsf"
+        replacements:
+          amd64: x86_64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+        checksum:
+          type: github_release
+          asset: "{{.Asset}}.sha256"
+          algorithm: sha256
+        overrides:
+          - goos: darwin
+            replacements:
+              arm64: aarch64
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
+      - version_constraint: "true"
+        asset: mdsf-{{.Arch}}-{{.OS}}.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        files:
+          - name: mdsf
+            src: "{{.AssetWithoutExt}}/mdsf"
+        replacements:
+          amd64: x86_64
+          darwin: apple-darwin
+          linux: unknown-linux-gnu
+          windows: pc-windows-msvc
+        checksum:
+          type: github_release
+          asset: "{{.Asset}}.sha256"
+          algorithm: sha256
+        overrides:
+          - goos: darwin
+            replacements:
+              arm64: aarch64
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
+  - type: github_release
     repo_owner: houseabsolute
     repo_name: ubi
     description: The Universal Binary Installer
@@ -42860,6 +43085,19 @@ packages:
           - name: pik
             src: "{{.AssetWithoutExt}}/pik"
   - type: github_release
+    repo_owner: jackchuka
+    repo_name: confluence-md
+    description: From Confluence to clean Markdown, images and all — just one command
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: confluence-md_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: confluence-md_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
+  - type: github_release
     repo_owner: jacobdeichert
     repo_name: mask
     description: A CLI task runner defined by a simple markdown file
@@ -44712,19 +44950,6 @@ packages:
           algorithm: sha256
         github_artifact_attestations:
           signer_workflow: jqlang/jq/.github/workflows/ci.yml
-  - type: github_release
-    repo_owner: jreisinger
-    repo_name: checkip
-    description: Get (security) info about IP addresses
-    rosetta2: true
-    asset: checkip_{{trimV .Version}}_{{.OS}}_{{.Arch}}.tar.gz
-    supported_envs:
-      - darwin
-      - amd64
-    checksum:
-      type: github_release
-      asset: checksums.txt
-      algorithm: sha256
   - name: jreleaser/jreleaser
     type: github_release
     repo_owner: jreleaser
@@ -45193,6 +45418,83 @@ packages:
       - name: fzf-tmux
     checksum:
       enabled: false
+  - type: github_release
+    repo_owner: just-every
+    repo_name: code
+    description: Fast, effective, mind-blowing, coding CLI. Browser integration, multi-agents, theming, and reasoning control. Orchestrate agents from OpenAI, Claude, Gemini or any provider
+    version_filter: not (Version startsWith "preview")
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: Version == "v0.1.3"
+        asset: code-{{.Arch}}-{{.OS}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+      - version_constraint: semver("<= 0.1.5")
+        asset: coder-{{.Arch}}-{{.OS}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+      - version_constraint: semver("<= 0.1.8")
+        asset: code-{{.Arch}}-{{.OS}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+      - version_constraint: semver("<= 0.1.13")
+        asset: coder-{{.Arch}}-{{.OS}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+      - version_constraint: semver("<= 0.2.34")
+        asset: code-{{.Arch}}-{{.OS}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+      - version_constraint: "true"
+        asset: code-{{.Arch}}-{{.OS}}.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+        files:
+          - name: code
+            src: code-{{.Arch}}-{{.OS}}
+        overrides:
+          - goos: windows
+            format: zip
+            asset: code-{{.Arch}}-{{.OS}}.exe.{{.Format}}
+            files:
+              - name: code
+                src: code-{{.Arch}}-{{.OS}}.exe
   - type: github_release
     repo_owner: justjanne
     repo_name: powerline-go
@@ -60151,152 +60453,6 @@ packages:
           - darwin
           - windows
           - amd64
-  - name: oracle/truffleruby/community-native
-    type: github_release
-    repo_owner: oracle
-    repo_name: truffleruby
-    description: |
-      A high performance implementation of the Ruby programming language, built on GraalVM
-
-      *GraalVM Community Edition Native Standalone Version*
-
-      ## Setup
-
-      If you are using RubyGems or similar, please follow the steps below.
-
-      1. Install truffleruby with aqua
-      2. Install dependent libraries (make, gcc, g++, libssl-dev, libyaml-dev, libz-dev)
-      3. Run the shell script to enable dependent libraries ($EXTRACTED_DIRECTORY/lib/truffle/post_install_hook.sh)
-
-      For more information, see the following document:
-
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-llvm.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libssl.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libyaml.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-zlib.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-truffleruby.md#after-downloading
-    files:
-      - name: bundle
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: bundler
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: erb
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: gem
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: irb
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: racc
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rake
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rbs
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rdbg
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rdoc
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: ri
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: ruby
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: syntax_suggest
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: truffleruby
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: truffleruby-polyglot-get
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-    version_filter: not (Version matches "-(dev|rc|preview)")
-    version_prefix: graal-
-    version_constraint: "false"
-    version_overrides:
-      - version_constraint: semver("<= 23.0.1")
-        no_asset: true
-      - version_constraint: "true"
-        asset: truffleruby-community-{{.SemVer}}-{{.OS}}-{{.Arch}}.{{.Format}}
-        format: tar.gz
-        replacements:
-          arm64: aarch64
-          darwin: macos
-        checksum:
-          type: github_release
-          asset: "{{.Asset}}.sha256"
-          algorithm: sha256
-        supported_envs:
-          - linux
-          - darwin
-  - name: oracle/truffleruby/oracle-native
-    type: github_release
-    repo_owner: oracle
-    repo_name: truffleruby
-    description: |
-      A high performance implementation of the Ruby programming language, built on GraalVM
-
-      *Oracle GraalVM Native Standalone Version*
-
-      ## Setup
-
-      If you are using RubyGems or similar, please follow the steps below.
-
-      1. Install truffleruby with aqua
-      2. Install dependent libraries (make, gcc, g++, libssl-dev, libyaml-dev, libz-dev)
-      3. Run the shell script to enable dependent libraries ($EXTRACTED_DIRECTORY/lib/truffle/post_install_hook.sh)
-
-      For more information, see the following document:
-
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-llvm.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libssl.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libyaml.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-zlib.md
-      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-truffleruby.md#after-downloading
-    files:
-      - name: bundle
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: bundler
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: erb
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: gem
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: irb
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: racc
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rake
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rbs
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rdbg
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: rdoc
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: ri
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: ruby
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: syntax_suggest
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: truffleruby
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-      - name: truffleruby-polyglot-get
-        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
-    version_filter: not (Version matches "-(dev|rc|preview)")
-    version_prefix: graal-
-    version_constraint: "false"
-    version_overrides:
-      - version_constraint: "true"
-        asset: truffleruby-{{.SemVer}}-{{.OS}}-{{.Arch}}.{{.Format}}
-        format: tar.gz
-        replacements:
-          arm64: aarch64
-          darwin: macos
-        checksum:
-          type: github_release
-          asset: "{{.Asset}}.sha256"
-          algorithm: sha256
-        supported_envs:
-          - linux
-          - darwin
   - type: github_release
     repo_owner: orangekame3
     repo_name: stree
@@ -61932,6 +62088,52 @@ packages:
         asset: periphery-{{.Version}}.zip
         supported_envs:
           - darwin
+  - type: github_release
+    repo_owner: perses
+    repo_name: perses
+    description: "The CNCF sandbox for observability visualisation. Already supports Prometheus, Tempo, Loki and Pyroscope - more data sources to come"
+    files:
+      - name: perses
+      - name: percli
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: Version in ["v0.2.0", "v0.6.0", "v0.9.0", "v0.21.0", "v0.42.0"]
+        no_asset: true
+      - version_constraint: semver("<= 0.3.1")
+        asset: perses_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        rosetta2: true
+        windows_arm_emulation: true
+        checksum:
+          type: github_release
+          asset: perses_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
+      - version_constraint: semver("<= 0.4.1")
+        no_asset: true
+      - version_constraint: semver("<= 0.29.1")
+        asset: perses_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        rosetta2: true
+        windows_arm_emulation: true
+        checksum:
+          type: github_release
+          asset: perses_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
+      - version_constraint: "true"
+        asset: perses_{{trimV .Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: perses_{{trimV .Version}}_checksums.txt
+          algorithm: sha256
   - type: github_release
     repo_owner: pete911
     repo_name: jwt
@@ -74311,6 +74513,37 @@ packages:
             format: zip
   - type: github_release
     repo_owner: suzuki-shunsuke
+    repo_name: ghir
+    description: ghir is a CLI making past GitHub Releases immutable
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: ghir_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        checksum:
+          type: github_release
+          asset: ghir_checksums.txt
+          algorithm: sha256
+          cosign:
+            opts:
+              - --certificate
+              - https://github.com/suzuki-shunsuke/ghir/releases/download/{{.Version}}/ghir_checksums.txt.pem
+              - --certificate-identity-regexp
+              - "^https://github\\.com/suzuki-shunsuke/go-release-workflow/\\.github/workflows/release\\.yaml@.+$"
+              - --certificate-oidc-issuer
+              - https://token.actions.githubusercontent.com
+              - --signature
+              - https://github.com/suzuki-shunsuke/ghir/releases/download/{{.Version}}/ghir_checksums.txt.sig
+        slsa_provenance:
+          type: github_release
+          asset: multiple.intoto.jsonl
+        github_artifact_attestations:
+          signer_workflow: suzuki-shunsuke/go-release-workflow/.github/workflows/release.yaml
+        overrides:
+          - goos: windows
+            format: zip
+  - type: github_release
+    repo_owner: suzuki-shunsuke
     repo_name: ghomfc
     description: GitHub Organization Members' Followers Counter
     version_constraint: "false"
@@ -75574,6 +75807,23 @@ packages:
           windows: pc-windows-msvc
   - type: github_release
     repo_owner: tailor-platform
+    repo_name: patterner
+    description: patterner is a tool to analyze and present best practices (patterns) for Tailor Platform applications
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: patterner_{{.Version}}_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        windows_arm_emulation: true
+        checksum:
+          type: github_release
+          asset: checksums.txt
+          algorithm: sha256
+        overrides:
+          - goos: darwin
+            format: zip
+  - type: github_release
+    repo_owner: tailor-platform
     repo_name: tailorctl
     description: Command line tool for Tailor Platform
     version_constraint: "false"
@@ -75723,6 +75973,24 @@ packages:
     version_overrides:
       - version_constraint: "true"
         asset: tfdiff_{{.OS}}_{{.Arch}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          amd64: x86_64
+          darwin: Darwin
+          linux: Linux
+          windows: Windows
+        checksum:
+          type: github_release
+          asset: checksums.txt
+          algorithm: sha256
+  - type: github_release
+    repo_owner: takaishi
+    repo_name: tftargets
+    description: A tool that analyzes Terraform configurations and identifies directories that need to be executed based on Git changes
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: tftargets_{{.OS}}_{{.Arch}}.{{.Format}}
         format: tar.gz
         replacements:
           amd64: x86_64
@@ -78529,6 +78797,156 @@ packages:
         replacements:
           amd64: x64
           darwin: macos
+  - name: truffleruby/truffleruby/community-native
+    aliases:
+      - name: oracle/truffleruby/community-native
+    type: github_release
+    repo_owner: truffleruby
+    repo_name: truffleruby
+    description: |
+      A high performance implementation of the Ruby programming language, built on GraalVM
+
+      *GraalVM Community Edition Native Standalone Version*
+
+      ## Setup
+
+      If you are using RubyGems or similar, please follow the steps below.
+
+      1. Install truffleruby with aqua
+      2. Install dependent libraries (make, gcc, g++, libssl-dev, libyaml-dev, libz-dev)
+      3. Run the shell script to enable dependent libraries ($EXTRACTED_DIRECTORY/lib/truffle/post_install_hook.sh)
+
+      For more information, see the following document:
+
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-llvm.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libssl.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libyaml.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-zlib.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-truffleruby.md#after-downloading
+    files:
+      - name: bundle
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: bundler
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: erb
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: gem
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: irb
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: racc
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rake
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rbs
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rdbg
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rdoc
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: ri
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: ruby
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: syntax_suggest
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: truffleruby
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: truffleruby-polyglot-get
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+    version_filter: not (Version matches "-(dev|rc|preview)")
+    version_prefix: graal-
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 23.0.1")
+        no_asset: true
+      - version_constraint: "true"
+        asset: truffleruby-community-{{.SemVer}}-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          arm64: aarch64
+          darwin: macos
+        checksum:
+          type: github_release
+          asset: "{{.Asset}}.sha256"
+          algorithm: sha256
+        supported_envs:
+          - linux
+          - darwin
+  - name: truffleruby/truffleruby/oracle-native
+    aliases:
+      - name: oracle/truffleruby/oracle-native
+    type: github_release
+    repo_owner: truffleruby
+    repo_name: truffleruby
+    description: |
+      A high performance implementation of the Ruby programming language, built on GraalVM
+
+      *Oracle GraalVM Native Standalone Version*
+
+      ## Setup
+
+      If you are using RubyGems or similar, please follow the steps below.
+
+      1. Install truffleruby with aqua
+      2. Install dependent libraries (make, gcc, g++, libssl-dev, libyaml-dev, libz-dev)
+      3. Run the shell script to enable dependent libraries ($EXTRACTED_DIRECTORY/lib/truffle/post_install_hook.sh)
+
+      For more information, see the following document:
+
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-llvm.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libssl.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-libyaml.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-zlib.md
+      - https://github.com/oracle/truffleruby/blob/master/doc/user/installing-truffleruby.md#after-downloading
+    files:
+      - name: bundle
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: bundler
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: erb
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: gem
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: irb
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: racc
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rake
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rbs
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rdbg
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: rdoc
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: ri
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: ruby
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: syntax_suggest
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: truffleruby
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+      - name: truffleruby-polyglot-get
+        src: "{{.AssetWithoutExt}}/bin/{{.FileName}}"
+    version_filter: not (Version matches "-(dev|rc|preview)")
+    version_prefix: graal-
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: truffleruby-{{.SemVer}}-{{.OS}}-{{.Arch}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          arm64: aarch64
+          darwin: macos
+        checksum:
+          type: github_release
+          asset: "{{.Asset}}.sha256"
+          algorithm: sha256
+        supported_envs:
+          - linux
+          - darwin
   - type: github_release
     repo_owner: trufflesecurity
     repo_name: driftwood
