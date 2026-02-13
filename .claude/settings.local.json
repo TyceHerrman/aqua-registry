@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(fd:*)",
+      "WebFetch(domain:aquaproj.github.io)",
+      "Bash(cmdx t:*)",
+      "Bash(cmdx start:*)",
+      "WebSearch",
+      "WebFetch(domain:mise.jdx.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:release-assets.githubusercontent.com)",
+      "Bash(/tmp/claude/Notifier-extract/extracted/Applications/Utilities/Notifier.app/Contents/MacOS/Notifier)",
+      "Bash(Notifier --help:*)",
+      "Bash(aqua exec:*)",
+      "Bash(AQUA_CONFIG=/tmp/claude/test-aqua.yaml aqua i:*)",
+      "Bash(AQUA_CONFIG=/tmp/claude/test-aqua.yaml AQUA_ALLOW_PKG=true aqua i:*)",
+      "Bash(AQUA_POLICY_CONFIG=/Users/tyceherrman/GitHub/aqua-registry/aqua-policy.yaml AQUA_CONFIG=/tmp/claude/test-aqua.yaml aqua i:*)",
+      "Bash(AQUA_POLICY_CONFIG=/Users/tyceherrman/GitHub/aqua-registry/aqua-policy.yaml AQUA_CONFIG=/tmp/claude/test-aqua.yaml aqua exec:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(fish -c:*)",
+      "Bash(gh release view:*)",
+      "Bash(gh release list:*)",
+      "Bash(gh repo view:*)",
+      "Bash(aqua list:*)",
+      "Bash(cmdx scaffold:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
