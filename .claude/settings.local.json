@@ -24,7 +24,8 @@
       "Bash(gh release list:*)",
       "Bash(gh repo view:*)",
       "Bash(aqua list:*)",
-      "Bash(cmdx scaffold:*)"
+      "Bash(cmdx scaffold:*)",
+      "WebFetch(domain:www.nixhub.io)"
     ],
     "deny": [],
     "ask": []

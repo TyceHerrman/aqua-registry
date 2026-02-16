@@ -1,0 +1,25 @@
+[setup]
+description = "Set up local git config for claude-config branch"
+run = """
+#!/bin/sh
+set -e
+
+if [ -f .claude/hooks/post-checkout ]; then
+  cp .claude/hooks/post-checkout .git/hooks/post-checkout
+  chmod +x .git/hooks/post-checkout
+  echo "Installed post-checkout hook"
+else
+  echo "Error: .claude/hooks/post-checkout not found" >&2
+  echo "Make sure you're on the claude-config branch" >&2
+  exit 1
+fi
+
+if ! grep -q '^\\.claude$' .git/info/exclude 2>/dev/null; then
+  echo '.claude' >> .git/info/exclude
+  echo "Added .claude to .git/info/exclude"
+else
+  echo ".claude already in .git/info/exclude"
+fi
+
+echo "Done. Skills will auto-restore on branch switches."
+"""
