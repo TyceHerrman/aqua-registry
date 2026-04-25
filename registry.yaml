@@ -42776,6 +42776,36 @@ packages:
       - version_constraint: "true"
   - type: github_release
     repo_owner: google
+    repo_name: google-java-format
+    description: Reformats Java source code to comply with Google Java Style
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 1.19.2")
+        asset: google-java-format-{{trimV .Version}}-all-deps.jar
+        format: raw
+        complete_windows_ext: false
+      - version_constraint: semver("<= 1.25.2")
+        asset: google-java-format_{{.OS}}-{{.Arch}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          amd64: x86-64
+        supported_envs:
+          - linux/amd64
+          - darwin/arm64
+          - windows
+      - version_constraint: "true"
+        asset: google-java-format_{{.OS}}-{{.Arch}}
+        windows_arm_emulation: true
+        format: raw
+        replacements:
+          amd64: x86-64
+        supported_envs:
+          - linux
+          - darwin/arm64
+          - windows
+  - type: github_release
+    repo_owner: google
     repo_name: jsonnet
     asset: jsonnet-bin-{{.Version}}-linux.tar.gz
     supported_envs:
@@ -50738,6 +50768,27 @@ packages:
       type: github_release
       asset: checksums.txt
       algorithm: sha256
+  - type: github_release
+    repo_owner: jonwiggins
+    repo_name: xmloxide
+    description: A pure Rust reimplementation of libxml2
+    files:
+      - name: xmllint
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: semver("<= 0.4.1")
+        no_asset: true
+      - version_constraint: "true"
+        asset: xmllint_{{.OS}}-{{.Arch}}
+        format: raw
+        windows_arm_emulation: true
+        replacements:
+          arm64: aarch64
+          amd64: x86-64
+        checksum:
+          type: github_release
+          asset: SHA256SUMS
+          algorithm: sha256
   - type: github_release
     repo_owner: jorgelbg
     repo_name: pinentry-touchid
@@ -88985,12 +89036,29 @@ packages:
             format: zip
             files:
               - name: tombi
-      - version_constraint: "true"
+      - version_constraint: semver("<= 0.9.22")
         asset: tombi-cli-{{trimV .Version}}-{{.Arch}}-{{.OS}}.{{.Format}}
         format: gz
         files:
           - name: tombi
             src: "{{.AssetWithoutExt}}"
+        replacements:
+          amd64: x86_64
+          arm64: aarch64
+          darwin: apple-darwin
+          linux: unknown-linux-musl
+          windows: pc-windows-msvc
+        overrides:
+          - goos: windows
+            format: zip
+            files:
+              - name: tombi
+      - version_constraint: "true"
+        asset: tombi-cli-{{trimV .Version}}-{{.Arch}}-{{.OS}}.{{.Format}}
+        format: tar.gz
+        files:
+          - name: tombi
+            src: "{{.AssetWithoutExt}}/tombi"
         replacements:
           amd64: x86_64
           arm64: aarch64
