@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/registry.json
+packages:
+  - type: github_release
+    repo_owner: getagentseal
+    repo_name: codeburn
+    description: See where your AI coding tokens go. Interactive TUI dashboard for Claude Code, Codex, and Cursor cost observability
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        no_asset: true

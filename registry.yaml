@@ -38660,6 +38660,14 @@ packages:
         checksum:
           enabled: false
   - type: github_release
+    repo_owner: getagentseal
+    repo_name: codeburn
+    description: See where your AI coding tokens go. Interactive TUI dashboard for Claude Code, Codex, and Cursor cost observability
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        no_asset: true
+  - type: github_release
     repo_owner: getanteon
     repo_name: anteon
     description: Anteon (formerly Ddosify) - Effortless Kubernetes Monitoring and Performance Testing. Available on CLI, Self-Hosted, and Cloud
